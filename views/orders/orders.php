@@ -24,39 +24,43 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($orders as $order) { ?>
+				<?php foreach ($orders as $order): ?>
 					<tr>
-						<td><?=$order['orderid']; ?></td>
-						<td><?=$order['address1'].' - '.$order['city']; ?></td>
+						<td><?= $order->orderid; ?></td>
+						<td><?= $order->address1 . ' - ' . $order->city; ?></td>
 						<?php
-						$orderdetails=unserialize($order['order_details']);
-						$multiorders=[];
-						if (count($orderdetails)>1) {
-							$t=array_values($orderdetails);
-							for ($i=0; $i < count($t); $i++) {
-								$multiorders[]=$t[$i]['price'];
+						$orderdetails = unserialize($order->order_details);
+
+						$multiorders = [];
+						if (count($orderdetails) > 1) {
+							foreach ($orderdetails as $key => $value) {
+								$multiorders[] = $value->price;
 							}
+						// $t = array_values($orderdetails);
+
+						// debug($t);
+						// for ($i = 0; $i < count($t); $i++) {
+						// 	$multiorders[] = $t[$i]['price'];
+						// }
 						}
 						foreach ($orderdetails as $key => $value) {
-							if (count($orderdetails)<=1) {
-								echo '<td>'.$value['price'].'</td>';
-								echo '<td><a href="/admin/orders/'.$order['orderid'].'" class="btn btn-info">View</a></td>';
+							if (count($orderdetails) <= 1) {
+								echo '<td>' . $value->price . '</td>';
+								echo '<td><a href="/admin/orders/' . $order->orderid . '" class="btn btn-info">View</a></td>';
 							}
 						}
 						if (array_sum($multiorders)) {
-							echo '<td>'.array_sum($multiorders).'</td>';
-							echo '<td><a href="/admin/orders/'.$order['orderid'].'" class="btn btn-info">View</a></td>';
+							echo '<td>' . array_sum($multiorders) . '</td>';
+							echo '<td><a href="/admin/orders/' . $order->orderid . '" class="btn btn-info">View</a></td>';
 						}
 						?>
 					</tr>
-					<?php } ?>
+				<?php endforeach ?>
 				</tbody>
 			</table>
 			<div class="h-25"></div>
 		</div>
 	</div>
-
-
 
 
 	<?php include 'views/layouts/footer.php'; ?>

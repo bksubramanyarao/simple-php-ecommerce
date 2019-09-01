@@ -1,21 +1,15 @@
 <?php
 
 
+$query = $dbh->prepare("SELECT * FROM products WHERE slug=:qs");
+$query->execute([':qs' => $qs]);
+$product = $query->fetch();
 
-
-
-
-
-
-
-$query=mysqli_query($con, "SELECT * FROM products WHERE slug='$q'");
-$product=mysqli_fetch_assoc($query);
-if (is_array($product)) {
-  include 'views/products/singleproduct.php';
+if (is_object($product)) {
+	include 'views/products/singleproduct.php';
 } else {
-  include 'views/404.php';
+	include 'views/404.php';
 }
-
 
 
 ?>
