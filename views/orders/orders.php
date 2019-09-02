@@ -36,12 +36,6 @@
 							foreach ($orderdetails as $key => $value) {
 								$multiorders[] = $value->price;
 							}
-						// $t = array_values($orderdetails);
-
-						// debug($t);
-						// for ($i = 0; $i < count($t); $i++) {
-						// 	$multiorders[] = $t[$i]['price'];
-						// }
 						}
 						foreach ($orderdetails as $key => $value) {
 							if (count($orderdetails) <= 1) {
